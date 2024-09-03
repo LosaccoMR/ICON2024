@@ -1,7 +1,7 @@
 from rdflib import Graph, Namespace, RDF, URIRef
 from rdflib.namespace import OWL
 
-FUTURA = Namespace("http://futuramente.org/ontologies/2023#")
+PREDICT = Namespace("http://futuramente.org/ontologies/2023#")
 OBO = Namespace("http://purl.obolibrary.org/obo/")
 
 # percorso per l'ontologia generata
@@ -22,7 +22,7 @@ for s in g_generated.subjects(RDF.type, OWL.ObjectProperty):
     print(f"Proprietà: {s}")
 
 # Visualizza gli individui (nazioni) e le loro proprietà
-for s in g_generated.subjects(RDF.type, FUTURA.Country):
+for s in g_generated.subjects(RDF.type, PREDICT.Country):
     print(f"Individuo: {s}")
     for p, o in g_generated.predicate_objects(subject=s):
         print(f"  Proprietà: {p}, Valore: {o}")
@@ -37,9 +37,9 @@ disorder_uris = {
 }
 
 # Verifica che le relazioni siano corrette
-for country in g_generated.subjects(RDF.type, FUTURA.Country):
+for country in g_generated.subjects(RDF.type, PREDICT.Country):
     for disorder_label, disorder_uri in disorder_uris.items():
-        if (country, FUTURA.hasDisorder, URIRef(disorder_uri)) in g_generated:
+        if (country, PREDICT.hasDisorder, URIRef(disorder_uri)) in g_generated:
             print(f"{country} ha il disturbo {disorder_label}")
         else:
             print(f"ERRORE: {country} non ha il disturbo {disorder_label}")
